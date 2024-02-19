@@ -58,14 +58,15 @@ def mostrar_resultados(archivos_eliminados, archivos_no_eliminados):
     print(f"\nTotal de archivos movidos a la papelera: {len(archivos_eliminados)}")
     print(f"Total de archivos no movidos a la papelera: {len(archivos_no_eliminados)}")
 
-def eliminar_archivos_por_tipo(ruta_temp, tamano_limite, tipo_archivo):
+def eliminar_archivos_por_tipo(ruta_temp, tamano_limite, tipo_archivo, paginacion=10, segmentacion=1024*1024*10):  # 10 MB
     archivos_eliminados = []
     archivos_no_eliminados = []
 
     try:
         notificacion_enviada = False
+        archivos = os.listdir(ruta_temp)
 
-        for archivo in os.listdir(ruta_temp):
+        for archivo in archivos:
             ruta_archivo = os.path.join(ruta_temp, archivo)
 
             if os.path.isfile(ruta_archivo) and os.path.getsize(ruta_archivo) > tamano_limite:
